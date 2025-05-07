@@ -10,9 +10,12 @@ const count = ref(0)
   <h1>{{ msg }}</h1>
 
   <div class="card">
+
+    <h2>THIS IS A TEST</h2>
+
     <button type="button" @click="count++">count is {{ count }}</button>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi recusandae porro quo aliquid iste quod assumenda officiis, unde odit harum veritatis at modi? Cumque harum inventore quaerat et doloribus accusamus ex, culpa dignissimos tempora possimus quo, illum officiis facere id ipsam libero reiciendis eius iusto molestiae nisi. Alias quasi in, reiciendis illum aperiam architecto nostrum. Suscipit consequuntur labore impedit eius aut earum neque quo ab obcaecati distinctio. Pariatur, placeat a itaque provident, perspiciatis labore, recusandae voluptate distinctio deserunt corporis animi commodi? Incidunt et repellendus temporibus quaerat at, omnis numquam accusantium commodi molestias fugit ex sapiente dignissimos expedita possimus, reprehenderit eius.</p>
-  </div>
+
+</div>
 </template>
 
 <style scoped>

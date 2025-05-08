@@ -11,7 +11,7 @@ const count = ref(0)
 
   <div class="card">
 
-    <h2>THIS IS A TEST</h2>
+    <h1>haru manis on sale</h1>
 
     <button type="button" @click="count++">count is {{ count }}</button>
 

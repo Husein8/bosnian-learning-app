@@ -7,16 +7,19 @@ const count = ref(0)
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <h1 class="">{{ msg }}</h1>
 
-  <div class="card">
+  <div>
 
-    <h2>THIS IS A TEST</h2>
+    <h2 class="text-red-500">THIS IS A TEST</h2>
 
     <button type="button" @click="count++">count is {{ count }}</button>
 
 </div>
 </template>
+
+<script>
+</script>
 
 <style scoped>
 .read-the-docs {

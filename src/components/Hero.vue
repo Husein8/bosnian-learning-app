@@ -5,48 +5,31 @@
     <div class="max-w-4xl mx-auto text-center">
       <!-- TODO: Add image or mascot logo here if needed -->
       <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-6">
-        ABC Djeca je aplikacija za učenje bosanskog jezika
+        ABC Kids is an app for learning the Bosnian language
       </h1>
       <p class="text-lg leading-relaxed mb-6">
-        Aplikacija je namijenjena za djecu od 1 do 10 godina i nudi veliki broj
-        predmeta za interaktivno učenje.
+        The app is designed for children aged 1 to 10 and offers a wide range of subjects for interactive learning.
       </p>
 
       <ul
         class="text-left max-w-2xl mx-auto list-disc list-inside space-y-1 mb-8"
       >
-        <li><strong>ABC TV</strong> - Orginalna muzika i knjige</li>
-        <li>Interaktivne igre</li>
-        <li>Sve riječi su na bosanskom i na engleskom jeziku</li>
-        <li>Sve aplikacije imaju audio i slike</li>
-        <li>Bez reklama</li>
-        <li>Aplikacija ne koristi internet</li>
-        <li>Često ažuriranje s novim sadržajem</li>
-        <li>Latinica i ćirilica</li>
+        <li><strong>ABC TV</strong> - Original music and books</li>
+        <li>Interactive games</li>
+        <li>All words are in Bosnian and English</li>
+        <li>All apps include audio and images</li>
+        <li>No ads</li>
+        <li>The app works offline</li>
+        <li>Frequent updates with new content</li>
+        <li>Latin and Cyrillic scripts</li>
       </ul>
 
       <p class="text-md leading-relaxed mb-4">
-        <strong>Sadržaj:</strong> Knjige, pjesmice, crtani filmovi, slovarica,
-        abeceda, matematika, brojevi, slova, životinje, memorija, slagalica,
-        boje, dani, ćirilica i mnogo više. Sve je na bosanskom i engleskom
-        jeziku sa audio i video slikama.
+        <strong>Content:</strong> Books, songs, cartoons, vocabulary, alphabet, math, numbers, letters, animals, memory games, puzzles, colors, days, Cyrillic script, and much more. Everything is in Bosnian and English with audio and video images.
       </p>
 
       <p class="text-md leading-relaxed text-justify">
-        Maternji jezik je jedna od najvažnijih kategorija za ljude koji njime
-        govore. Značaj maternjeg jezika je višestruk; od identitarnih temelja,
-        preko komunikacionih, edukativnih i vaspitnih do psiholoških, emotivnih
-        i patriotskih faktora. Ovo se posebno odnosi na dijasporu koja egzistira
-        u uslovima stranih jezika. Gubitak maternjeg jezika je prvi uzrok
-        negativne asimilacije dijaspore u novim sredinama. Svi koji žele da
-        izbjegnu ili ublaže tu asimilaciju trebaju pored škola maternjeg jezika
-        aktivno i osmišljeno raditi na učenju i očuvanju maternjeg jezika kod
-        najmlađeg uzrasta djece. Autori ove aplikacije su se potrudili da
-        osmisle model učenja bosanskog jezika za najmlađe kroz zabavne,
-        edukativne i druge metode primjerene najmlađem uzrastu djece.
-        <strong>ABC Djeca</strong> je model čijom kupovinom aplikacije po
-        najpristupačnijoj cijeni možete ojačati osjećaj pripadnosti najmlađih i
-        sačuvati naše korijenje (identitet).
+        A mother tongue is one of the most important categories for those who speak it. Its significance is multifaceted — from identity foundations, through communication, education, and upbringing, to psychological, emotional, and patriotic factors. This is especially important for the diaspora living in foreign language environments. Loss of the mother tongue is the main cause of negative assimilation in new surroundings. Anyone wishing to avoid or reduce this assimilation should, alongside mother tongue schools, actively and purposefully work on learning and preserving the mother tongue in the youngest children. The creators of this app have designed a Bosnian language learning model for the youngest using fun, educational, and age-appropriate methods. <strong>ABC Kids</strong> is a model that, by purchasing the app at an affordable price, can strengthen a sense of belonging for the youngest and preserve our roots (identity).
       </p>
     </div>
   </section>

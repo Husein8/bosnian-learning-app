@@ -1,13 +1,19 @@
 <template>
-  <section class="py-12 bg-gray-50">
+  <section class="py-12 bg-gray-50" aria-label="Parent testimonials">
     <h2 class="text-2xl font-bold text-center mb-6">Šta kažu roditelji?</h2>
 
-    <div class="overflow-x-auto no-scrollbar">
+    <div
+      tabindex="0"
+      role="list"
+      class="overflow-x-auto no-scrollbar focus:outline-none focus:ring-2 focus:ring-blue-600"
+      aria-label="Testimonials carousel"
+    >
       <div class="flex gap-6 px-4 md:px-12">
-        <div
+        <article
           v-for="(testimonial, index) in testimonials"
           :key="index"
-          class="min-w-[250px] bg-white rounded-xl shadow-md p-6 flex-shrink-0"
+          role="listitem"
+          class="min-w-[250px] bg-white rounded-xl shadow-md p-6 flex-shrink-0 hover:shadow-lg transition-shadow duration-300"
         >
           <img
             :src="testimonial.image"
@@ -20,7 +26,7 @@
           <p class="text-gray-600 text-sm mt-2 text-center">
             "{{ testimonial.message }}"
           </p>
-        </div>
+        </article>
       </div>
     </div>
   </section>

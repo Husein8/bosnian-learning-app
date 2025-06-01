@@ -14,6 +14,7 @@
             @click="isOpen = !isOpen"
             type="button"
             class="text-gray-600 hover:text-blue-600 focus:outline-none focus:text-blue-600"
+            aria-label="Toggle menu"
           >
             <svg
               v-if="!isOpen"
@@ -44,19 +45,19 @@
 
         <!-- Links -->
         <div class="hidden md:flex md:items-center space-x-6">
-          <a href="#" class="text-gray-700 hover:text-blue-600">Početna</a>
-          <a href="#" class="text-gray-700 hover:text-blue-600">O nama</a>
-          <a href="#" class="text-gray-700 hover:text-blue-600">Pretplata</a>
-          <a href="#" class="text-gray-700 hover:text-blue-600">Kontakt</a>
+          <a href="#" class="text-gray-700 hover:text-blue-600">Home</a>
+          <a href="#" class="text-gray-700 hover:text-blue-600">About</a>
+          <a href="#" class="text-gray-700 hover:text-blue-600">Subscription</a>
+          <a href="#" class="text-gray-700 hover:text-blue-600">Contact</a>
           <button
             class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
           >
-            Prijava
+            Login
           </button>
           <button
             class="border border-blue-600 text-blue-600 px-4 py-1 rounded hover:bg-blue-50"
           >
-            Registracija
+            Register
           </button>
         </div>
       </div>
@@ -64,20 +65,20 @@
 
     <!-- Mobile Dropdown -->
     <div v-if="isOpen" class="md:hidden px-4 pb-4 space-y-2">
-      <a href="#" class="block text-gray-700 hover:text-blue-600">Početna</a>
-      <a href="#" class="block text-gray-700 hover:text-blue-600">O nama</a>
-      <a href="#" class="block text-gray-700 hover:text-blue-600">Pretplata</a>
-      <a href="#" class="block text-gray-700 hover:text-blue-600">Kontakt</a>
+      <a href="#" class="block text-gray-700 hover:text-blue-600">Home</a>
+      <a href="#" class="block text-gray-700 hover:text-blue-600">About</a>
+      <a href="#" class="block text-gray-700 hover:text-blue-600">Subscription</a>
+      <a href="#" class="block text-gray-700 hover:text-blue-600">Contact</a>
       <div class="flex gap-2 pt-2">
         <button
           class="w-full bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
         >
-          Prijava
+          Login
         </button>
         <button
           class="w-full border border-blue-600 text-blue-600 px-4 py-1 rounded hover:bg-blue-50"
         >
-          Registracija
+          Register
         </button>
       </div>
     </div>

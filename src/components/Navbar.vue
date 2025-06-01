@@ -49,11 +49,12 @@
           <a href="#" class="text-gray-700 hover:text-blue-600">About</a>
           <a href="#" class="text-gray-700 hover:text-blue-600">Subscription</a>
           <a href="#" class="text-gray-700 hover:text-blue-600">Contact</a>
-          <button
-            class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
-          >
-            Login
-          </button>
+          <RouterLink to="/login">
+         <button class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">
+    Login
+  </button>
+</RouterLink>
+
           <button
             class="border border-blue-600 text-blue-600 px-4 py-1 rounded hover:bg-blue-50"
           >
@@ -87,6 +88,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { RouterLink } from 'vue-router';
 
 const isOpen = ref(false);
 </script>

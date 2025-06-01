@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>this is a NAVBAR</h1>
+    <h1 class="bg-amber-700">this is a NAVBAR</h1>
   </div>
 </template>
 

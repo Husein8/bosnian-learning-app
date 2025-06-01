@@ -55,11 +55,14 @@
   </button>
 </RouterLink>
 
+        <RouterLink to="/register">
+
           <button
             class="border border-blue-600 text-blue-600 px-4 py-1 rounded hover:bg-blue-50"
           >
             Register
           </button>
+          </RouterLink>
         </div>
       </div>
     </div>

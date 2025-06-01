@@ -36,9 +36,13 @@
         </button>
       </form>
 
+      
       <p class="mt-6 text-center text-gray-600">
         Don't have an account?
-        <a href="/register" class="text-blue-600 hover:underline">Register here</a>
+        <RouterLink to="/register">
+          <a href="/register" class="text-blue-600 hover:underline">Register here</a>
+        </RouterLink>
+        
       </p>
     </div>
   </section>
@@ -46,6 +50,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { RouterLink } from 'vue-router';
 
 const email = ref('')
 const password = ref('')

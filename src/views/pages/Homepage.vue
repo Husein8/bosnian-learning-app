@@ -2,6 +2,7 @@
   <div>
     <Navbar />
     <Hero />
+    <FeaturesSection />
     <TestimonialCarousel />
     <Footer />
   </div>
@@ -12,4 +13,5 @@ import Navbar from "../../components/Navbar.vue";
 import Footer from "../../components/Footer.vue";
 import Hero from "../../components/Hero.vue";
 import TestimonialCarousel from "../../components/TestimonialCarousel.vue";
+import FeaturesSection from "../../components/FeaturesSection.vue";
 </script>

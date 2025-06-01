@@ -10,11 +10,11 @@
 
       <!-- Desktop Links -->
       <div class="hidden md:flex items-center space-x-6 text-blue-700 font-semibold">
-        <a href="#" class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1">🏠 Home</a>
-        <a href="#" class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1">📚 Learn</a>
-        <a href="#" class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1">🎮 Play</a>
-        <a href="#" class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1">🌟 About</a>
-        <a href="#" class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1">📞 Contact</a>
+        <RouterLink to="/" class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1">🏠 Home</RouterLink>
+        <RouterLink to="/learn" class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1">📚 Learn</RouterLink>
+        <RouterLink to="/games" class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1">🎮 Play</RouterLink>
+        <RouterLink to="/about" class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1">🌟 About</RouterLink>
+        <RouterLink to="/contact" class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1">📞 Contact</RouterLink>
 
         <RouterLink to="/login">
           <button class="px-4 py-2 bg-blue-200 hover:bg-blue-300 text-blue-900 rounded-full transition font-semibold shadow-sm">
@@ -71,11 +71,11 @@
       v-if="isOpen"
       class="md:hidden bg-gradient-to-br from-blue-50 to-white rounded-xl mx-4 mt-2 p-4 text-blue-700 space-y-3 shadow-inner"
     >
-      <a href="#" class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1">🏠 Home</a>
-      <a href="#" class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1">📚 Learn</a>
-      <a href="#" class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1">🎮 Play</a>
-      <a href="#" class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1">🌟 About</a>
-      <a href="#" class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1">📞 Contact</a>
+      <RouterLink to="/" class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1">🏠 Home</RouterLink>
+      <RouterLink to="/learn" class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1">📚 Learn</RouterLink>
+      <RouterLink to="/games" class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1">🎮 Play</RouterLink>
+      <RouterLink to="/about" class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1">🌟 About</RouterLink>
+      <RouterLink to="/contact" class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1">📞 Contact</RouterLink>
 
       <div class="flex gap-2 pt-2">
         <RouterLink to="/login" class="w-full">

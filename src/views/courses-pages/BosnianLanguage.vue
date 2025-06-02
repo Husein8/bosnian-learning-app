@@ -1,179 +1,16 @@
-<script setup lang="ts">
-import { ref, computed } from "vue";
-import type { Lesson, Flashcard, Quiz, LessonScore } from "../types/lesson";
-
-const lessons: Lesson[] = [
-  {
-    id: "1",
-    title: "Abeceda",
-    level: "Beginner",
-    order: 1,
-    description: "Learn the Bosnian alphabet",
-    flashcards: [
-      { word: "Zdravo", translation: "Hello", example: "Zdravo, kako si?" },
-      { word: "Hvala", translation: "Thank you", example: "Hvala lijepo!" },
-      {
-        word: "Molim",
-        translation: "Please/You're welcome",
-        example: "Molim vas.",
-      },
-    ],
-  },
-  {
-    id: "2",
-    title: "Brojevi",
-    level: "Beginner",
-    order: 2,
-    description: "Learn numbers in Bosnian",
-    flashcards: [
-      { word: "Jedan", translation: "One" },
-      { word: "Dva", translation: "Two" },
-      { word: "Tri", translation: "Three" },
-    ],
-  },
-];
-
-const userProgress = ref<{ [key: string]: LessonScore }>({});
-const selectedLevel = ref<"Beginner" | "Intermediate" | "Advanced" | null>(
-  null
-);
-const currentLesson = ref<Lesson | null>(null);
-const currentFlashcardIndex = ref(0);
-const isQuizMode = ref(false);
-const currentQuizIndex = ref(0);
-const userAnswers = ref<string[]>([]);
-const quizScore = ref<number>(0);
-const showQuizResults = ref(false);
-const showTranslation = ref(false);
-
-const levelLessons = computed(() => {
-  if (!selectedLevel.value) return [];
-  return lessons.filter((lesson) => lesson.level === selectedLevel.value);
-});
-
-const levelProgress = computed(() => {
-  if (!selectedLevel.value) return 0;
-  const levelLessonsCount = lessons.filter(
-    (l) => l.level === selectedLevel.value
-  ).length;
-  const completedLessons = Object.values(userProgress.value).filter(
-    (score) =>
-      lessons.find((l) => l.id === score.lessonId)?.level ===
-      selectedLevel.value
-  ).length;
-  return Math.round((completedLessons / levelLessonsCount) * 100);
-});
-
-const generateQuizFromLesson = (lesson: Lesson): Quiz => {
-  const questions = lesson.flashcards.map((flashcard) => ({
-    question: `What is the translation of "${flashcard.word}"?`,
-    options: [
-      flashcard.translation,
-      ...lesson.flashcards
-        .filter((f) => f.word !== flashcard.word)
-        .map((f) => f.translation)
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 3),
-    ].sort(() => Math.random() - 0.5),
-    correctAnswer: flashcard.translation,
-  }));
-
-  return {
-    id: `quiz-${lesson.id}`,
-    lessonId: lesson.id,
-    questions,
-  };
-};
-
-const currentQuiz = computed(() => {
-  if (!currentLesson.value) return null;
-  return generateQuizFromLesson(currentLesson.value);
-});
-
-const selectLevel = (level: "Beginner" | "Intermediate" | "Advanced") => {
-  selectedLevel.value = level;
-  currentLesson.value = null;
-  resetQuiz();
-};
-
-const startLesson = (lesson: Lesson) => {
-  currentLesson.value = lesson;
-  currentFlashcardIndex.value = 0;
-  isQuizMode.value = false;
-  showTranslation.value = false;
-  resetQuiz();
-};
-
-const nextFlashcard = () => {
-  if (!currentLesson.value) return;
-
-  if (currentFlashcardIndex.value < currentLesson.value.flashcards.length - 1) {
-    currentFlashcardIndex.value++;
-    showTranslation.value = false;
-  }
-};
-
-const toggleTranslation = () => {
-  showTranslation.value = !showTranslation.value;
-};
-
-const startQuiz = () => {
-  isQuizMode.value = true;
-  currentQuizIndex.value = 0;
-  userAnswers.value = [];
-  quizScore.value = 0;
-  showQuizResults.value = false;
-};
-
-const resetQuiz = () => {
-  isQuizMode.value = false;
-  currentQuizIndex.value = 0;
-  userAnswers.value = [];
-  quizScore.value = 0;
-  showQuizResults.value = false;
-};
-
-const submitAnswer = (answer: string) => {
-  if (!currentQuiz.value || !currentLesson.value) return;
-
-  userAnswers.value.push(answer);
-  if (
-    answer === currentQuiz.value.questions[currentQuizIndex.value].correctAnswer
-  ) {
-    quizScore.value++;
-  }
-
-  if (currentQuizIndex.value < currentQuiz.value.questions.length - 1) {
-    currentQuizIndex.value++;
-  } else {
-    showQuizResults.value = true;
-    const lessonScore: LessonScore = {
-      lessonId: currentLesson.value.id,
-      score: quizScore.value,
-      totalQuestions: currentQuiz.value.questions.length,
-      completedAt: new Date(),
-    };
-    userProgress.value[currentLesson.value.id] = lessonScore;
-  }
-};
-
-const getLessonProgress = (lessonId: string): number => {
-  const score = userProgress.value[lessonId];
-  if (!score) return 0;
-  return Math.round((score.score / score.totalQuestions) * 100);
-};
-</script>
-
 <template>
+  <Navbar />
   <div class="min-h-screen bg-gray-50 py-8 px-4">
     <div class="max-w-4xl mx-auto">
+      <!-- Header when a level is selected -->
       <div class="flex justify-between items-center mb-8">
         <h1 class="text-3xl font-bold text-gray-900">Bosanski Jezik</h1>
-        <RouterLink
-          to="/courses"
-          class="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-        >
-          ← Back to Home
+        <RouterLink to="/courses">
+          <button
+            class="text-sm cursor-pointer text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            ← Back to Home
+          </button>
         </RouterLink>
       </div>
 
@@ -182,7 +19,7 @@ const getLessonProgress = (lessonId: string): number => {
         <div
           v-for="level in ['Beginner', 'Intermediate', 'Advanced']"
           :key="level"
-          @click="selectLevel(level as any)"
+          @click="selectLevel(level)"
           class="bg-white rounded-lg shadow p-6 cursor-pointer hover:shadow-lg transition-all"
         >
           <div class="flex items-center justify-between mb-4">
@@ -207,14 +44,14 @@ const getLessonProgress = (lessonId: string): number => {
           <div class="mt-4 bg-gray-200 rounded-full h-2">
             <div
               class="bg-blue-600 h-2 rounded-full transition-all duration-500"
-              :style="{ width: `${levelProgress}%` }"
+              :style="{ width: levelProgress + '%' }"
             ></div>
           </div>
         </div>
       </div>
 
-      <!-- Lesson Selection -->
-      <div v-else-if="!currentLesson" class="space-y-6">
+      <!-- Lessons List -->
+      <div v-else class="space-y-6">
         <div class="flex justify-between items-center mb-6">
           <div>
             <h2 class="text-2xl font-semibold text-gray-900">
@@ -223,7 +60,7 @@ const getLessonProgress = (lessonId: string): number => {
             <p class="text-gray-600">Progress: {{ levelProgress }}%</p>
           </div>
           <button
-            @click="selectedLevel = null"
+            @click="() => (selectedLevel = null)"
             class="text-sm text-gray-600 hover:text-gray-900"
           >
             ← Back to Levels
@@ -232,9 +69,9 @@ const getLessonProgress = (lessonId: string): number => {
 
         <div class="grid gap-4">
           <div
-            v-for="lesson in levelLessons"
+            v-for="lesson in lessons.filter((l) => l.level === selectedLevel)"
             :key="lesson.id"
-            class="bg-white border border-gray-200 rounded-lg p-4 hover:border-blue-500 cursor-pointer"
+            class="bg-white border border-gray-200 rounded-lg p-6 hover:border-blue-500 cursor-pointer transition-colors"
             @click="startLesson(lesson)"
           >
             <div class="flex justify-between items-center">
@@ -242,7 +79,7 @@ const getLessonProgress = (lessonId: string): number => {
                 <h3 class="text-lg font-medium text-gray-900">
                   {{ lesson.title }}
                 </h3>
-                <p class="text-gray-600">{{ lesson.description }}</p>
+                <p class="text-gray-600 mt-1">{{ lesson.description || "" }}</p>
               </div>
               <div class="flex items-center space-x-4">
                 <div
@@ -254,68 +91,55 @@ const getLessonProgress = (lessonId: string): number => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Learning Content -->
-      <div v-else class="bg-white rounded-lg shadow p-6">
-        <div class="flex justify-between items-center mb-6">
-          <div>
-            <h2 class="text-2xl font-semibold text-gray-900">
-              {{ currentLesson.title }}
-            </h2>
-            <p class="text-gray-600">
-              {{
-                isQuizMode
-                  ? "Quiz Mode"
-                  : `Flashcard ${currentFlashcardIndex + 1}/${
-                      currentLesson.flashcards.length
-                    }`
-              }}
+            <p
+              v-if="getLessonProgress(lesson.id) === 100"
+              class="text-green-600 mt-2 font-semibold"
+            >
+              ✅ Completed
             </p>
           </div>
-          <button
-            @click="currentLesson = null"
-            class="text-sm text-gray-600 hover:text-gray-900"
-          >
-            ← Back to Lessons
-          </button>
         </div>
 
-        <!-- Flashcard Mode -->
-        <div v-if="!isQuizMode" class="flex flex-col items-center space-y-6">
-          <div class="w-full max-w-md bg-gray-50 rounded-lg p-8 text-center">
+        <!-- Current Lesson Flashcards -->
+        <div
+          v-if="currentLesson"
+          class="bg-white rounded-lg shadow p-8 mt-8 max-w-md mx-auto"
+        >
+          <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-semibold text-gray-900">
+              {{ currentLesson.title }}
+            </h3>
+            <button
+              @click="() => (currentLesson = null)"
+              class="text-sm text-gray-600 hover:text-gray-900"
+            >
+              ← Back to Lessons
+            </button>
+          </div>
+
+          <div class="bg-gray-50 rounded-lg p-8 text-center mb-6">
             <h3 class="text-3xl font-bold text-gray-900 mb-4">
-              {{ currentLesson.flashcards[currentFlashcardIndex].word }}
+              {{ currentLesson.items[currentFlashcardIndex].bosnian }}
             </h3>
             <div v-if="showTranslation" class="mt-4">
               <p class="text-xl text-gray-700">
-                {{
-                  currentLesson.flashcards[currentFlashcardIndex].translation
-                }}
-              </p>
-              <p
-                v-if="currentLesson.flashcards[currentFlashcardIndex].example"
-                class="text-sm text-gray-600 mt-2 italic"
-              >
-                {{ currentLesson.flashcards[currentFlashcardIndex].example }}
+                {{ currentLesson.items[currentFlashcardIndex].english }}
               </p>
             </div>
           </div>
 
-          <div class="flex space-x-4">
+          <div class="flex justify-center space-x-4 mb-6">
             <button
               @click="toggleTranslation"
-              class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               {{ showTranslation ? "Hide Translation" : "Show Translation" }}
             </button>
 
             <button
-              v-if="currentFlashcardIndex < currentLesson.flashcards.length - 1"
+              v-if="currentFlashcardIndex < currentLesson.items.length - 1"
               @click="nextFlashcard"
-              class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+              class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
               Next Card
             </button>
@@ -323,62 +147,112 @@ const getLessonProgress = (lessonId: string): number => {
             <button
               v-else
               @click="startQuiz"
-              class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+              class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             >
               Start Quiz
             </button>
           </div>
         </div>
 
-        <!-- Quiz Mode -->
-        <div v-else class="flex flex-col items-center space-y-6">
-          <div v-if="currentQuiz && !showQuizResults" class="w-full max-w-md">
-            <h3 class="text-xl font-semibold text-gray-900 mb-6">
-              {{ currentQuiz.questions[currentQuizIndex].question }}
-            </h3>
+        <!-- Quiz Section -->
+        <div
+          v-if="quizStarted"
+          class="max-w-md mx-auto bg-white rounded-lg shadow p-6"
+        >
+          <h3 class="text-xl font-semibold text-gray-900 mb-6">
+            Q{{ currentQuestionIndex + 1 }}:
+            {{ currentQuiz[currentQuestionIndex].question }}
+          </h3>
 
-            <div class="space-y-4">
-              <button
-                v-for="option in currentQuiz.questions[currentQuizIndex]
-                  .options"
-                :key="option"
-                @click="submitAnswer(option)"
-                class="w-full text-left px-6 py-4 bg-gray-50 rounded-lg hover:bg-gray-100"
-              >
-                {{ option }}
-              </button>
-            </div>
-
-            <div class="mt-6 text-sm text-gray-600">
-              Question {{ currentQuizIndex + 1 }} of
-              {{ currentQuiz.questions.length }}
-            </div>
+          <div class="space-y-4 mb-6">
+            <button
+              v-for="option in currentQuiz[currentQuestionIndex].options"
+              :key="option"
+              @click="selectedOption = option"
+              :class="[
+                'w-full text-left px-6 py-4 rounded-lg transition-colors',
+                selectedOption === option
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-50 hover:bg-gray-100',
+              ]"
+            >
+              {{ option }}
+            </button>
           </div>
 
-          <!-- Quiz Results -->
-          <div v-if="showQuizResults" class="w-full max-w-md text-center">
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">Quiz Results</h3>
-            <p class="text-xl text-gray-700 mb-6">
-              Score: {{ quizScore }} / {{ currentQuiz?.questions.length }}
-            </p>
-            <div class="space-y-4">
-              <button
-                @click="currentLesson = null"
-                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-              >
-                Back to Lessons
-              </button>
-              <button
-                v-if="quizScore < currentQuiz!.questions.length"
-                @click="startQuiz"
-                class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
-              >
-                Try Again
-              </button>
-            </div>
+          <button
+            @click="submitAnswer"
+            class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+          >
+            Submit
+          </button>
+        </div>
+
+        <!-- Quiz Results -->
+        <div
+          v-if="quizCompleted"
+          class="max-w-md mx-auto bg-white rounded-lg shadow p-6 text-center mt-6"
+        >
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Quiz Finished!</h3>
+          <p class="text-xl text-gray-700 mb-6">
+            Your score: {{ score }} / {{ currentQuiz.length }}
+          </p>
+          <div class="space-x-4 flex justify-center">
+            <button
+              @click="resetQuiz"
+              class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Retry
+            </button>
+            <button
+              @click="() => (currentLesson = null)"
+              class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              Back to Lessons
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { storeToRefs } from "pinia";
+import { useLessonStore } from "../../stores/lessonStore";
+// import { useLessonStore } from "@/stores/lessonStore";
+
+const lessonStore = useLessonStore();
+const {
+  selectedLevel,
+  currentLesson,
+  currentFlashcardIndex,
+  quizStarted,
+  currentQuestionIndex,
+  selectedOption,
+  quizCompleted,
+  score,
+  lessons,
+  progress,
+  currentQuiz,
+  levelProgress,
+} = storeToRefs(lessonStore);
+
+const {
+  selectLevel,
+  startLesson,
+  nextFlashcard,
+  startQuiz,
+  submitAnswer,
+  resetQuiz,
+  getLessonProgress,
+} = lessonStore;
+
+// Toggle translation if needed — optional
+import { ref } from "vue";
+import Navbar from "../../components/Navbar.vue";
+const showTranslation = ref(false);
+const toggleTranslation = () => {
+  showTranslation.value = !showTranslation.value;
+};
+</script>

@@ -4,11 +4,13 @@
       <div class="sm:flex sm:items-center sm:justify-between">
         <a href="/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
           <img
-            src="https://www.abcdjeca.com/images/footer-logo.svg"
+            :src="logo"
             class="h-8"
             alt="ABC Djeca Logo"
           />
-          <span class="self-center text-2xl font-semibold whitespace-nowrap text-blue-700">ABC Djeca</span>
+          <span class="self-center text-2xl font-semibold whitespace-nowrap text-blue-700">
+            Lilium
+          </span>
         </a>
         <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0">
           <li>
@@ -29,7 +31,7 @@
       <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
 
       <div class="text-center text-gray-600 text-sm max-w-xl mx-auto">
-        ABC Djeca is an educational platform for children aged 1 to 10, offering fun and interactive lessons, games, songs, and stories to learn the Bosnian language.  
+        ABC Djeca is an educational platform for children aged 1 to 10, offering fun and interactive lessons, games, songs, and stories to learn the Bosnian language.
         Our mission is to foster a love of the native language and learning through play and creativity.
       </div>
 
@@ -41,7 +43,8 @@
 </template>
 
 <script setup>
-// No logic needed
+// ✅ Use a relative path
+import logo from '../assets/LogoLilium.png' // adjust if your file is deeper
 </script>
 
 <style scoped>

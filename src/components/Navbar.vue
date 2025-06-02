@@ -1,15 +1,16 @@
 <template>
   <nav
-    class="sticky top-0 z-50 bg-gradient-to-br m-4bg-gradient-to-br from-blue-50 to-white rounded-2xl mx-4 my-4 shadow-md border border-blue-100"
+    class="sticky top-0 z-50 bg-gradient-to-br from-blue-50 to-white rounded-2xl mx-4 my-4 shadow-md border border-blue-100"
   >
     <div
       class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center"
     >
       <!-- Logo -->
-      <div class="flex items-center">
-        <span class="text-2xl font-extrabold text-blue-700 select-none"
-          >ABC Djeca</span
-        >
+      <div class="flex items-center space-x-3">
+        <img :src="logo" alt="ABC Djeca Logo" class="h-10 w-auto" />
+        <span class="text-2xl font-extrabold text-blue-700 select-none">
+          Lilium
+        </span>
       </div>
 
       <!-- Desktop Links -->
@@ -26,7 +27,6 @@
           class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1"
           >📚 Learn</RouterLink
         >
-
         <RouterLink
           to="/about"
           class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1"
@@ -105,7 +105,6 @@
         class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
         >📚 Learn</RouterLink
       >
-
       <RouterLink
         to="/about"
         class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
@@ -140,6 +139,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
+
+// ✅ Use local image from assets
+import logo from '../assets/LogoLilium.png';
 
 const isOpen = ref(false);
 </script>

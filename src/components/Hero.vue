@@ -1,23 +1,35 @@
 <template>
   <section class="bg-white text-gray-900 py-16 px-6">
-    <div class="max-w-5xl mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">
-        Learn Bosnian the Fun Way
-      </h1>
-      <p class="text-lg md:text-xl mb-6 text-gray-700">
-        Interactive lessons for kids who speak English. Simple, fun, and totally beginner-friendly!
-      </p>
-      <router-link
-        to="/register"
-        class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg transition"
-      >
-        Start Learning Free
-      </router-link>
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
+      <!-- Text Content -->
+      <div class="md:w-1/2 text-center md:text-left">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          Learn Bosnian the Fun Way
+        </h1>
+        <p class="text-lg md:text-xl mb-6 text-gray-700">
+          Interactive lessons for kids who speak English. Simple, fun, and totally beginner-friendly!
+        </p>
+        <router-link
+          to="/register"
+          class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg transition"
+        >
+          Start Learning Free
+        </router-link>
+      </div>
+
+      <!-- Fun Icon Image -->
+      <div class="md:w-1/2 flex justify-center">
+        <img
+          ref="popImage"
+          src="/DogFlag.jpg"
+          alt="Dog with Flag"
+          class="w-64 h-64 object-cover p-2 bg-yellow-100 border-4 border-pink-300 rounded-full shadow-xl childish-clip"
+        />
+      </div>
     </div>
 
     <!-- Features Section -->
-    <div class="mt-16 grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
-      <!-- Feature 1 -->
+    <div class="mt-20 grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
       <div class="text-center px-4">
         <div class="w-20 h-20 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-3xl">
           🎧
@@ -28,7 +40,6 @@
         </p>
       </div>
 
-      <!-- Feature 2 -->
       <div class="text-center px-4">
         <div class="w-20 h-20 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-3xl">
           🧠
@@ -39,7 +50,6 @@
         </p>
       </div>
 
-      <!-- Feature 3 -->
       <div class="text-center px-4">
         <div class="w-20 h-20 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-3xl">
           👩‍🏫
@@ -54,9 +64,33 @@
 </template>
 
 <script setup>
-// Purely visual – no script needed
+import { ref, onMounted } from 'vue'
+import gsap from 'gsap'
+
+const popImage = ref(null)
+
+onMounted(() => {
+  gsap.from(popImage.value, {
+    scale: 0,
+    opacity: 0,
+    duration: 1.2,
+    ease: 'back.out(1.7)',
+    delay: 0.5,
+  })
+})
 </script>
 
 <style scoped>
-/* Optional: Add bounce animation or hover effects later if needed */
+.childish-clip {
+  clip-path: polygon(
+    30% 0%,
+    70% 0%,
+    100% 30%,
+    100% 70%,
+    70% 100%,
+    30% 100%,
+    0% 70%,
+    0% 30%
+  );
+}
 </style>

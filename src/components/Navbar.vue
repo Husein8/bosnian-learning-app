@@ -1,7 +1,9 @@
 <template>
-  <nav
-    class="bg-gradient-to-br from-blue-50 to-white rounded-2xl mx-4 my-4 shadow-md border border-blue-100"
-  >
+   <nav
+  class="sticky top-0 z-50 bg-gradient-to-br m-4bg-gradient-to-br from-blue-50 to-white rounded-2xl mx-4 my-4 shadow-md border border-blue-100"
+>
+
+
     <div
       class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center"
     >

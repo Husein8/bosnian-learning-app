@@ -1,36 +1,62 @@
 <template>
-  <section
-    class="pt-24 pb-16 px-6 bg-gradient-to-br from-blue-50 to-white text-gray-800"
-  >
-    <div class="max-w-4xl mx-auto text-center">
-      <!-- TODO: Add image or mascot logo here if needed -->
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-6">
-        ABC Kids is an app for learning the Bosnian language
+  <section class="bg-white text-gray-900 py-16 px-6">
+    <div class="max-w-5xl mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        Learn Bosnian the Fun Way
       </h1>
-      <p class="text-lg leading-relaxed mb-6">
-        The app is designed for children aged 1 to 10 and offers a wide range of subjects for interactive learning.
+      <p class="text-lg md:text-xl mb-6 text-gray-700">
+        Interactive lessons for kids who speak English. Simple, fun, and totally beginner-friendly!
       </p>
-
-      <ul
-        class="text-left max-w-2xl mx-auto list-disc list-inside space-y-1 mb-8"
+      <router-link
+        to="/register"
+        class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg transition"
       >
-        <li><strong>ABC TV</strong> - Original music and books</li>
-        <li>Interactive games</li>
-        <li>All words are in Bosnian and English</li>
-        <li>All apps include audio and images</li>
-        <li>No ads</li>
-        <li>The app works offline</li>
-        <li>Frequent updates with new content</li>
-        <li>Latin and Cyrillic scripts</li>
-      </ul>
+        Start Learning Free
+      </router-link>
+    </div>
 
-      <p class="text-md leading-relaxed mb-4">
-        <strong>Content:</strong> Books, songs, cartoons, vocabulary, alphabet, math, numbers, letters, animals, memory games, puzzles, colors, days, Cyrillic script, and much more. Everything is in Bosnian and English with audio and video images.
-      </p>
+    <!-- Features Section -->
+    <div class="mt-16 grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
+      <!-- Feature 1 -->
+      <div class="text-center px-4">
+        <div class="w-20 h-20 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-3xl">
+          🎧
+        </div>
+        <h2 class="text-xl font-semibold mb-2">Audio & Video Lessons</h2>
+        <p class="text-gray-700 text-sm">
+          Learn with native pronunciation through fun and short lessons.
+        </p>
+      </div>
 
-      <p class="text-md leading-relaxed text-justify">
-        A mother tongue is one of the most important categories for those who speak it. Its significance is multifaceted — from identity foundations, through communication, education, and upbringing, to psychological, emotional, and patriotic factors. This is especially important for the diaspora living in foreign language environments. Loss of the mother tongue is the main cause of negative assimilation in new surroundings. Anyone wishing to avoid or reduce this assimilation should, alongside mother tongue schools, actively and purposefully work on learning and preserving the mother tongue in the youngest children. The creators of this app have designed a Bosnian language learning model for the youngest using fun, educational, and age-appropriate methods. <strong>ABC Kids</strong> is a model that, by purchasing the app at an affordable price, can strengthen a sense of belonging for the youngest and preserve our roots (identity).
-      </p>
+      <!-- Feature 2 -->
+      <div class="text-center px-4">
+        <div class="w-20 h-20 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-3xl">
+          🧠
+        </div>
+        <h2 class="text-xl font-semibold mb-2">Interactive Games</h2>
+        <p class="text-gray-700 text-sm">
+          Memorize new words and phrases by playing mini-games and quizzes.
+        </p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="text-center px-4">
+        <div class="w-20 h-20 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-3xl">
+          👩‍🏫
+        </div>
+        <h2 class="text-xl font-semibold mb-2">Learn with Confidence</h2>
+        <p class="text-gray-700 text-sm">
+          Build confidence step-by-step with structured beginner-friendly paths.
+        </p>
+      </div>
     </div>
   </section>
 </template>
+
+<script setup>
+// Purely visual – no script needed
+</script>
+
+<style scoped>
+/* Optional: Add bounce animation or hover effects later if needed */
+</style>

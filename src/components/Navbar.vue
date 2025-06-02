@@ -1,9 +1,7 @@
 <template>
-   <nav
-  class="sticky top-0 z-50 bg-gradient-to-br m-4bg-gradient-to-br from-blue-50 to-white rounded-2xl mx-4 my-4 shadow-md border border-blue-100"
->
-
-
+  <nav
+    class="sticky top-0 z-50 bg-gradient-to-br m-4bg-gradient-to-br from-blue-50 to-white rounded-2xl mx-4 my-4 shadow-md border border-blue-100"
+  >
     <div
       class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center"
     >
@@ -107,11 +105,7 @@
         class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
         >📚 Learn</RouterLink
       >
-      <RouterLink
-        to="/games"
-        class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
-        >🎮 Play</RouterLink
-      >
+
       <RouterLink
         to="/about"
         class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
@@ -126,14 +120,14 @@
       <div class="flex gap-2 pt-2">
         <RouterLink to="/login" class="w-full">
           <button
-            class="w-full px-4 py-2 bg-blue-200 hover:bg-blue-300 text-blue-900 rounded-full transition font-semibold shadow-sm"
+            class="w-full px-2 py-2 bg-blue-200 hover:bg-blue-300 text-blue-900 rounded-full transition font-semibold shadow-sm"
           >
             🔐 Login
           </button>
         </RouterLink>
         <RouterLink to="/register" class="w-full">
           <button
-            class="w-full px-4 py-2 rounded-full bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 text-blue-900 font-bold transition hover:brightness-110 shadow-sm"
+            class="w-full px-2 py-2 rounded-full bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 text-blue-900 font-bold transition hover:brightness-110 shadow-sm"
           >
             ✨ Sign Up
           </button>

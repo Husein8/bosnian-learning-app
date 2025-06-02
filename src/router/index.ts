@@ -7,6 +7,7 @@ import BosnianLanguage from "../views/courses-pages/BosnianLanguage.vue";
 import Geography from "../views/courses-pages/Geography.vue";
 import CultureTradition from "../views/courses-pages/CultureTradition.vue";
 import AboutUsPage from "../components/AboutUsPage.vue";
+import ContactUsPage from "../components/ContactUsPage.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Homepage },
@@ -14,6 +15,7 @@ const routes = [
   { path: "/register", name: "Register", component: RegisterPage }, // Add this line
   { path: "/courses", name: "Courses", component: CoursesHomepage },
   { path: "/about", name: "About", component: AboutUsPage },
+  { path: "/contact", name: "Contact", component: ContactUsPage },
 
   // courses pages -> bosnian language, geography and culture
   { path: "/language", name: "BosnianLanguage", component: BosnianLanguage },

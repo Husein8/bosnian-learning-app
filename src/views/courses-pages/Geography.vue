@@ -282,6 +282,8 @@ const getLessonProgress = (lessonId: string): number => {
         </RouterLink>
       </div>
 
+      <p>works</p>
+
       <!-- Level Selection -->
       <div v-if="!selectedLevel" class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div

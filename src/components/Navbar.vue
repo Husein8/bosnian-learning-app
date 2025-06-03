@@ -1,147 +1,207 @@
 <template>
   <nav
-    class="sticky top-0 z-50 bg-gradient-to-br from-blue-50 to-white rounded-2xl mx-4 my-4 shadow-md border border-blue-100"
+    class="sticky top-0 z-50 flex items-center justify-between sm:h-10 md:justify-center py-6 px-4 mt-2 bg-transparent shadow-sm"
   >
-    <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center"
-    >
-      <!-- Logo -->
-      <div class="flex items-center space-x-3">
-        <img :src="logo" alt="ABC Djeca Logo" class="h-10 w-auto" />
-        <span class="text-2xl font-extrabold text-blue-700 select-none">
-          Lilium
-        </span>
+    <div class="flex items-center flex-1 md:absolute md:inset-y-0 md:left-0">
+      <div class="flex items-center justify-between w-full md:w-auto">
+        <RouterLink to="/" aria-label="Home">
+          <transition name="pop" appear>
+            <img
+              v-show="show"
+              :src="logo"
+              alt="Lilium Logo"
+              class="h-10 w-auto"
+            />
+          </transition>
+        </RouterLink>
+        <div class="-mr-2 flex items-center md:hidden">
+          <button
+            type="button"
+            id="main-menu"
+            aria-label="Main menu"
+            aria-haspopup="true"
+            class="inline-flex items-center justify-center p-2 rounded-md text-blue-500 hover:text-blue-700 hover:bg-blue-100 focus:outline-none focus:bg-blue-100 focus:text-blue-700 transition duration-150 ease-in-out"
+            @click="isOpen = !isOpen"
+          >
+            <transition name="pop" appear>
+              <svg
+                v-if="!isOpen && show"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 24 24"
+                class="h-6 w-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+              <svg
+                v-else-if="show"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 24 24"
+                class="h-6 w-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </transition>
+          </button>
+        </div>
       </div>
+    </div>
 
-      <!-- Desktop Links -->
+    <div class="hidden md:flex md:space-x-10 text-blue-700 font-semibold">
+      <transition-group
+        name="pop"
+        tag="div"
+        appear
+        class="flex space-x-10"
+        v-show="show"
+      >
+        <RouterLink
+          key="home"
+          to="/"
+          class="font-medium hover:text-blue-900 transition duration-150 ease-in-out flex items-center gap-1"
+        >
+          🏠 Home
+        </RouterLink>
+        <RouterLink
+          key="courses"
+          to="/courses"
+          class="font-medium hover:text-blue-900 transition duration-150 ease-in-out flex items-center gap-1"
+        >
+          📖 Learn
+        </RouterLink>
+        <RouterLink
+          key="about"
+          to="/about"
+          class="font-medium hover:text-blue-900 transition duration-150 ease-in-out flex items-center gap-1"
+        >
+          ✨ About
+        </RouterLink>
+        <RouterLink
+          key="contact"
+          to="/contact"
+          class="font-medium hover:text-blue-900 transition duration-150 ease-in-out flex items-center gap-1"
+        >
+          📬 Contact
+        </RouterLink>
+      </transition-group>
+    </div>
+
+    <div
+      class="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0 space-x-3"
+      v-show="show"
+    >
+      <transition-group name="pop" tag="div" appear class="flex space-x-3">
+        <RouterLink
+          key="login"
+          to="/login"
+          class="inline-flex items-center px-4 py-2 border border-blue-400 text-blue-600 hover:text-blue-800 hover:border-blue-600 rounded-md transition duration-150 ease-in-out font-semibold"
+        >
+           Login
+        </RouterLink>
+        <RouterLink
+          key="signup"
+          to="/register"
+          class="inline-flex items-center px-4 py-2 rounded-md bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 text-blue-900 font-bold hover:brightness-110 shadow-sm transition duration-150 ease-in-out"
+        >
+           Sign Up
+        </RouterLink>
+      </transition-group>
+    </div>
+
+    <!-- Mobile menu dropdown -->
+    <transition name="fade">
       <div
-        class="hidden md:flex items-center space-x-6 text-blue-700 font-semibold"
+        v-if="isOpen"
+        class="md:hidden absolute top-full inset-x-0 p-4 bg-white bg-opacity-90 rounded-b-lg shadow-lg"
       >
         <RouterLink
           to="/"
-          class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1"
+          class="block px-3 py-2 rounded-md text-blue-700 hover:bg-blue-100 font-semibold flex items-center gap-1"
           >🏠 Home</RouterLink
         >
         <RouterLink
           to="/courses"
-          class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1"
-          >📚 Learn</RouterLink
+          class="block px-3 py-2 rounded-md text-blue-700 hover:bg-blue-100 font-semibold flex items-center gap-1"
+          >📖 Learn</RouterLink
         >
         <RouterLink
           to="/about"
-          class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1"
-          >🌟 About</RouterLink
+          class="block px-3 py-2 rounded-md text-blue-700 hover:bg-blue-100 font-semibold flex items-center gap-1"
+          >✨ About</RouterLink
         >
         <RouterLink
           to="/contact"
-          class="px-3 py-2 rounded-full hover:bg-blue-100 transition flex items-center gap-1"
-          >📞 Contact</RouterLink
+          class="block px-3 py-2 rounded-md text-blue-700 hover:bg-blue-100 font-semibold flex items-center gap-1"
+          >📬 Contact</RouterLink
         >
-
-        <RouterLink to="/login">
-          <button
-            class="px-4 py-2 bg-blue-200 hover:bg-blue-300 text-blue-900 rounded-full transition font-semibold shadow-sm"
-          >
-            🔐 Login
-          </button>
-        </RouterLink>
-
-        <RouterLink to="/register">
-          <button
-            class="px-4 py-2 rounded-full bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 text-blue-900 font-bold transition hover:brightness-110 shadow-sm"
-          >
-            ✨ Sign Up
-          </button>
-        </RouterLink>
-      </div>
-
-      <!-- Mobile Button -->
-      <div class="md:hidden">
-        <button
-          @click="isOpen = !isOpen"
-          class="text-blue-700 focus:outline-none"
-          aria-label="Toggle menu"
+        <RouterLink
+          to="/login"
+          class="block px-3 py-2 rounded-md text-blue-700 hover:bg-blue-100 font-semibold mt-2"
+          > Login</RouterLink
         >
-          <svg
-            v-if="!isOpen"
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-          <svg
-            v-else
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
+        <RouterLink
+          to="/register"
+          class="block px-3 py-2 rounded-md bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 text-blue-900 font-bold hover:brightness-110 mt-2"
+          > Sign Up</RouterLink
+        >
       </div>
-    </div>
-
-    <!-- Mobile Dropdown -->
-    <div
-      v-if="isOpen"
-      class="md:hidden bg-gradient-to-br from-blue-50 to-white rounded-xl mx-4 mt-2 p-4 text-blue-700 space-y-3 shadow-inner"
-    >
-      <RouterLink
-        to="/"
-        class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
-        >🏠 Home</RouterLink
-      >
-      <RouterLink
-        to="/courses"
-        class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
-        >📚 Learn</RouterLink
-      >
-      <RouterLink
-        to="/about"
-        class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
-        >🌟 About</RouterLink
-      >
-      <RouterLink
-        to="/contact"
-        class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
-        >📞 Contact</RouterLink
-      >
-
-      <div class="flex gap-2 pt-2">
-        <RouterLink to="/login" class="w-full">
-          <button
-            class="w-full px-2 py-2 bg-blue-200 hover:bg-blue-300 text-blue-900 rounded-full transition font-semibold shadow-sm"
-          >
-            🔐 Login
-          </button>
-        </RouterLink>
-        <RouterLink to="/register" class="w-full">
-          <button
-            class="w-full px-2 py-2 rounded-full bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 text-blue-900 font-bold transition hover:brightness-110 shadow-sm"
-          >
-            ✨ Sign Up
-          </button>
-        </RouterLink>
-      </div>
-    </div>
+    </transition>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { RouterLink } from "vue-router";
-
-// ✅ Use local image from assets
-import logo from '../assets/LogoLilium.png';
+import logo from "../assets/LogoLilium.png";
 
 const isOpen = ref(false);
+const show = ref(false);
+
+onMounted(() => {
+  // Delay so transition appear works nicely
+  setTimeout(() => {
+    show.value = true;
+  }, 100);
+});
 </script>
+
+<style scoped>
+.pop-enter-active,
+.pop-leave-active {
+  transition: all 0.3s ease;
+}
+.pop-enter-from,
+.pop-leave-to {
+  opacity: 0;
+  transform: scale(0.8);
+}
+.pop-enter-to,
+.pop-leave-from {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
+</style>

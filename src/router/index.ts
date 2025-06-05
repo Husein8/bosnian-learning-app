@@ -18,6 +18,7 @@ import CultureTradition from "../views/courses-pages/CultureTradition.vue";
 // landing page
 import AboutUsPage from "../components/AboutUsPage.vue";
 import ContactUsPage from "../components/ContactUsPage.vue";
+import { useAuthStore } from "../stores/authStore";
 
 const routes = [
   { path: "/", name: "Home", component: Homepage },
@@ -68,15 +69,16 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.getUser();
-    if (error || !user) {
-      // Redirect to login, pass original path to redirect after login
+    const { data, error } = await supabase.auth.getUser();
+    if (error || !data.user) {
       return next({ name: "Login", query: { redirect: to.fullPath } });
     }
+
+    // Sync user in Pinia store
+    const authStore = useAuthStore();
+    authStore.user = data.user;
   }
+
   next();
 });
 

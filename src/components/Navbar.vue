@@ -36,9 +36,9 @@
           >📞 Contact</RouterLink
         >
 
-        <template v-if="user">
+        <template v-if="authStore.user">
           <button
-            @click="logout"
+            @click="authStore.logout"
             class="px-4 py-2 text-red-600 border border-red-200 hover:bg-red-50 rounded-full font-semibold transition"
           >
             🚪 Log Out
@@ -67,7 +67,7 @@
       <div class="md:hidden">
         <button
           @click="isOpen = !isOpen"
-          class="text-blue-700 focus:outline-none"
+          class="text-blue-700 focus:outline-none cursor-pointer"
           aria-label="Toggle menu"
         >
           <svg
@@ -105,30 +105,30 @@
     >
       <RouterLink
         to="/"
-        class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
+        class="px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
         >🏠 Home</RouterLink
       >
       <RouterLink
         to="/courses"
-        class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
+        class="px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
         >📚 Learn</RouterLink
       >
       <RouterLink
         to="/about"
-        class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
+        class="px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
         >🌟 About</RouterLink
       >
       <RouterLink
         to="/contact"
-        class="block px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
+        class="px-3 py-2 rounded-lg hover:bg-blue-100 transition font-semibold flex items-center gap-1"
         >📞 Contact</RouterLink
       >
 
       <div class="flex flex-col gap-2 pt-2">
-        <template v-if="user">
+        <template v-if="authStore.user">
           <button
-            @click="logout"
-            class="w-full px-3 py-2 bg-red-100 hover:bg-red-200 text-red-700 font-semibold rounded-full transition"
+            @click="authStore.logout"
+            class="w-full cursor-pointer px-3 py-2 bg-red-100 hover:bg-red-200 text-red-700 font-semibold rounded-full transition"
           >
             🚪 Log Out
           </button>
@@ -155,25 +155,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
-import { RouterLink } from "vue-router"
-import { useLogout } from "./logout"
-import { supabase } from "../supabase/supabase"
-import logo from "../assets/LogoLilium.png"
-import type { User } from '@supabase/supabase-js'
+import { ref, onMounted } from "vue";
+// import { supabase } from "../supabase/supabase";
+import { RouterLink } from "vue-router";
+import logo from "../assets/LogoLilium.png";
+import { useAuthStore } from "../stores/authStore";
 
+const isOpen = ref(false);
+const authStore = useAuthStore();
 
-const isOpen = ref(false)
-const user = ref<User | null>(null)
-const { logout } = useLogout()
+// onMounted(() => {
+//   supabase.auth.getUser().then(({ data }) => {
+//     user.value = data.user;
+//   });
 
-onMounted(() => {
-  supabase.auth.getUser().then(({ data }) => {
-    user.value = data.user
-  })
-
-  supabase.auth.onAuthStateChange((_, session) => {
-    user.value = session?.user || null
-  })
-})
+//   supabase.auth.onAuthStateChange((_, session) => {
+//     user.value = session?.user || null;
+//   });
+// });
 </script>

@@ -2,12 +2,20 @@ import { createRouter, createWebHistory } from "vue-router";
 import { supabase } from "../supabase/supabase"; // adjust path if needed
 
 import Homepage from "../views/landing-pages/Homepage.vue";
-import LoginPage from "../views/landing-pages/LoginPage.vue";
-import RegisterPage from "../views/landing-pages/RegisterPage.vue";
+
+//login
+import LoginPage from "../views/login/LoginPage.vue";
+
+//register
+import RegisterPage from "../views/login/RegisterPage.vue";
+
+// lessons
 import CoursesHomepage from "../views/courses-pages/CoursesHomepage.vue";
 import BosnianLanguage from "../views/courses-pages/BosnianLanguage.vue";
 import Geography from "../views/courses-pages/Geography.vue";
 import CultureTradition from "../views/courses-pages/CultureTradition.vue";
+
+// landing page
 import AboutUsPage from "../components/AboutUsPage.vue";
 import ContactUsPage from "../components/ContactUsPage.vue";
 
@@ -49,7 +57,7 @@ const routes = [
   {
     path: "/forgot-password",
     name: "ForgotPassword",
-    component: () => import("../views/landing-pages/ForgotPasswordPage.vue"),
+    component: () => import("../views/login/ForgotPasswordPage.vue"),
   },
 ];
 

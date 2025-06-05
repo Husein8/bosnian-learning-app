@@ -52,6 +52,14 @@ onMounted(() => {
         {{ authStore.loading ? "Logging in..." : "Login" }}
       </button>
 
+      <RouterLink to="/register">
+        <button
+          class="px-4 py-2 bg-blue-200 hover:bg-blue-300 text-blue-900 rounded-full transition font-semibold shadow-sm"
+        >
+          ✨ Register
+        </button>
+      </RouterLink>
+
       <p v-if="authStore.errorMessage" class="text-red-500 text-center">
         {{ authStore.errorMessage }}
       </p>

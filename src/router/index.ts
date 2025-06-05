@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { supabase } from "../supabase/supabase"; // adjust path if needed
+
 import Homepage from "../views/landing-pages/Homepage.vue";
 import LoginPage from "../views/landing-pages/LoginPage.vue";
 import RegisterPage from "../views/landing-pages/RegisterPage.vue";
@@ -11,21 +13,57 @@ import ContactUsPage from "../components/ContactUsPage.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Homepage },
-  { path: "/login", name: "Login", component: LoginPage }, // Add this line
-  { path: "/register", name: "Register", component: RegisterPage }, // Add this line
-  { path: "/courses", name: "Courses", component: CoursesHomepage },
+  { path: "/login", name: "Login", component: LoginPage },
+  { path: "/register", name: "Register", component: RegisterPage },
+
+  // Protected routes
+  {
+    path: "/courses",
+    name: "Courses",
+    component: CoursesHomepage,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/language",
+    name: "BosnianLanguage",
+    component: BosnianLanguage,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/geography",
+    name: "Geography",
+    component: Geography,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/culture",
+    name: "Culture",
+    component: CultureTradition,
+    meta: { requiresAuth: true },
+  },
+
+  // Public pages
   { path: "/about", name: "About", component: AboutUsPage },
   { path: "/contact", name: "Contact", component: ContactUsPage },
-
-  // courses pages -> bosnian language, geography and culture
-  { path: "/language", name: "BosnianLanguage", component: BosnianLanguage },
-  { path: "/geography", name: "Geography", component: Geography },
-  { path: "/culture", name: "Culture", component: CultureTradition },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+    if (error || !user) {
+      // Redirect to login, pass original path to redirect after login
+      return next({ name: "Login", query: { redirect: to.fullPath } });
+    }
+  }
+  next();
 });
 
 export default router;

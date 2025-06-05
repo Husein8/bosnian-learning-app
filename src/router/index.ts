@@ -45,6 +45,12 @@ const routes = [
   // Public pages
   { path: "/about", name: "About", component: AboutUsPage },
   { path: "/contact", name: "Contact", component: ContactUsPage },
+
+  {
+    path: "/forgot-password",
+    name: "ForgotPassword",
+    component: () => import("../views/landing-pages/ForgotPasswordPage.vue"),
+  },
 ];
 
 const router = createRouter({

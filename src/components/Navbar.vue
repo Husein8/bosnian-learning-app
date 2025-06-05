@@ -36,21 +36,31 @@
           >📞 Contact</RouterLink
         >
 
-        <RouterLink to="/login">
+        <template v-if="user">
           <button
-            class="px-4 py-2 bg-blue-200 hover:bg-blue-300 text-blue-900 rounded-full transition font-semibold shadow-sm"
+            @click="logout"
+            class="px-4 py-2 text-red-600 border border-red-200 hover:bg-red-50 rounded-full font-semibold transition"
           >
-            🔐 Login
+            🚪 Log Out
           </button>
-        </RouterLink>
+        </template>
+        <template v-else>
+          <RouterLink to="/login">
+            <button
+              class="px-4 py-2 bg-blue-200 hover:bg-blue-300 text-blue-900 rounded-full transition font-semibold shadow-sm"
+            >
+              🔐 Login
+            </button>
+          </RouterLink>
 
-        <RouterLink to="/register">
-          <button
-            class="px-4 py-2 rounded-full bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 text-blue-900 font-bold transition hover:brightness-110 shadow-sm"
-          >
-            ✨ Sign Up
-          </button>
-        </RouterLink>
+          <RouterLink to="/register">
+            <button
+              class="px-4 py-2 rounded-full bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 text-blue-900 font-bold transition hover:brightness-110 shadow-sm"
+            >
+              ✨ Sign Up
+            </button>
+          </RouterLink>
+        </template>
       </div>
 
       <!-- Mobile Button -->
@@ -114,32 +124,56 @@
         >📞 Contact</RouterLink
       >
 
-      <div class="flex gap-2 pt-2">
-        <RouterLink to="/login" class="w-full">
+      <div class="flex flex-col gap-2 pt-2">
+        <template v-if="user">
           <button
-            class="w-full px-2 py-2 bg-blue-200 hover:bg-blue-300 text-blue-900 rounded-full transition font-semibold shadow-sm"
+            @click="logout"
+            class="w-full px-3 py-2 bg-red-100 hover:bg-red-200 text-red-700 font-semibold rounded-full transition"
           >
-            🔐 Login
+            🚪 Log Out
           </button>
-        </RouterLink>
-        <RouterLink to="/register" class="w-full">
-          <button
-            class="w-full px-2 py-2 rounded-full bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 text-blue-900 font-bold transition hover:brightness-110 shadow-sm"
-          >
-            ✨ Sign Up
-          </button>
-        </RouterLink>
+        </template>
+        <template v-else>
+          <RouterLink to="/login" class="w-full">
+            <button
+              class="w-full px-2 py-2 bg-blue-200 hover:bg-blue-300 text-blue-900 rounded-full transition font-semibold shadow-sm"
+            >
+              🔐 Login
+            </button>
+          </RouterLink>
+          <RouterLink to="/register" class="w-full">
+            <button
+              class="w-full px-2 py-2 rounded-full bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 text-blue-900 font-bold transition hover:brightness-110 shadow-sm"
+            >
+              ✨ Sign Up
+            </button>
+          </RouterLink>
+        </template>
       </div>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { RouterLink } from "vue-router";
+import { ref, onMounted } from "vue"
+import { RouterLink } from "vue-router"
+import { useLogout } from "./logout"
+import { supabase } from "../supabase/supabase"
+import logo from "../assets/LogoLilium.png"
+import type { User } from '@supabase/supabase-js'
 
-// ✅ Use local image from assets
-import logo from "../assets/LogoLilium.png";
 
-const isOpen = ref(false);
+const isOpen = ref(false)
+const user = ref<User | null>(null)
+const { logout } = useLogout()
+
+onMounted(() => {
+  supabase.auth.getUser().then(({ data }) => {
+    user.value = data.user
+  })
+
+  supabase.auth.onAuthStateChange((_, session) => {
+    user.value = session?.user || null
+  })
+})
 </script>

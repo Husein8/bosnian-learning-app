@@ -1,11 +1,12 @@
 <template>
   <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-100 to-blue-100 px-4">
     <div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-xl space-y-6">
-      <h2 class="text-3xl font-bold text-center text-blue-600">Welcome Back!</h2>
+      <h2 class="text-3xl font-bold text-center text-blue-600">🎉 Welcome Back, Friend!</h2>
+      <p class="text-center text-gray-600 text-sm">Let's get you back to learning fun stuff!</p>
 
       <form @submit.prevent="handleSubmit" class="space-y-4">
         <div>
-          <label for="email" class="block mb-1 font-semibold text-gray-700">Email Address</label>
+          <label for="email" class="block mb-1 font-semibold text-gray-700">📧 Email Address</label>
           <input
             v-model="email"
             id="email"
@@ -17,7 +18,7 @@
         </div>
 
         <div>
-          <label for="password" class="block mb-1 font-semibold text-gray-700">Password</label>
+          <label for="password" class="block mb-1 font-semibold text-gray-700">🔑 Password</label>
           <input
             v-model="password"
             id="password"
@@ -26,6 +27,12 @@
             placeholder="Your password"
             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
+          <RouterLink
+            to="/forgot-password"
+            class="block text-right text-sm text-blue-600 hover:underline mt-1"
+          >
+            Forgot your password?
+          </RouterLink>
         </div>
 
         <button
@@ -40,8 +47,8 @@
             fill="none"
             viewBox="0 0 24 24"
           >
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
           </svg>
           <span>{{ loading ? 'Signing In...' : 'Sign In' }}</span>
         </button>
@@ -67,10 +74,10 @@
         <span>{{ googleLoading ? 'Connecting...' : 'Sign in with Google' }}</span>
       </button>
 
-      <p v-if="errorMessage" class="text-center text-red-500 text-sm mt-2">{{ errorMessage }}</p>
+      <p v-if="errorMessage" class="text-center text-red-500 text-sm mt-2 font-medium">{{ errorMessage }}</p>
 
       <p class="mt-4 text-center text-sm text-gray-600">
-        Don't have an account?
+        Don’t have an account?
         <RouterLink to="/register" class="text-blue-600 hover:underline">Register here</RouterLink>
       </p>
     </div>
@@ -80,7 +87,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter, useRoute, RouterLink } from 'vue-router'
-import { supabase } from "../../supabase/supabase"
+import { supabase } from '../../supabase/supabase'
 
 const email = ref('')
 const password = ref('')
